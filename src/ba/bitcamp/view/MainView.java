@@ -11,7 +11,7 @@ public class MainView {
 	protected static int windowWidth = 400;
 	protected static int windowHeight = 500;
 	
-	private static void home() {
+	public static void home() {
 		
 		
 	}

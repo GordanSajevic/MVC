@@ -1,11 +1,16 @@
 package ba.bitcamp.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Contact extends Application{
 	
 	private int id;
 	private String name;
 	private String surname;
 	private String number;
+	
+	private final static String tableName = "Contacts";
 	
 	public Contact(int id, String name, String surname, String number)
 	{
@@ -31,6 +36,26 @@ public class Contact extends Application{
 		this.number = "";
 	}
 
+	public static Contact find(int id)
+	{
+		ResultSet res = Application.find(id, tableName);
+		try {
+			int cId = res.getInt("id");
+			String cName = res.getString("Name");
+			String cSurname = res.getString("Surname");
+			String cNumber = res.getString("Number");
+			return new Contact(cId, cName, cSurname, cNumber);
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			return null;
+		}
+	}
+	
+	public int getID()
+	{
+		return id;
+	}
+	
 	public String getName() 
 	{
 		return name;

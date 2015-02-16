@@ -6,10 +6,10 @@ public class Application {
 	
 	public static void init() throws SQLException
 	{
-		db = DriverManager.getConnection("jdbc:sqlite:phonebook.db");
+		db = DriverManager.getConnection("jdbc:sqlite:BitBook.db");
 	}
 	
-	protected ResultSet find(int id, String tableName)
+	protected static ResultSet find(int id, String tableName)
 	{
 		try {
 			Statement stmt = db.createStatement();
