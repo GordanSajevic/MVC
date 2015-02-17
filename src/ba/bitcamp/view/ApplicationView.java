@@ -16,7 +16,17 @@ import javax.swing.JTextField;
 import ba.bitcamp.controller.ApplicationController;
 import ba.bitcamp.model.*;
 
+/*
+* Class creates main GUI for our application.
+* This class extends Main class(because of method replaceContent in Main class)
+*/
+
 public class ApplicationView extends Main {
+
+/*
+* Method creates pane, buttons and label for main frame.
+* After that, we put panel on main frame(with method replaceContent from main class)
+*/
 
 	public static void home() {
 		JPanel content = new JPanel();
@@ -45,15 +55,14 @@ public class ApplicationView extends Main {
 		content.add(addContact);
 		content.add(showContact);
 
-		// Treba brisati
-		// JLabel contactInfo = new JLabel(
-		// c.getName() + " " + c.getSurname() + " " + c.getNumber()
-		// );
-		// content.add(contactInfo);
-
 		Main.replaceContent(content);
 
 	}
+
+/*
+* Method creates panel for adding new contacts to phonebook.
+* Again we use replaceContent from Main class
+*/
 
 	public static void addContact() {
 
@@ -99,7 +108,12 @@ public class ApplicationView extends Main {
 		replaceContent(content);
 
 	}
-	
+
+/*
+* Class creates panel for list of all contacts in phonebook.
+* Again we use replaceContent from Main class
+*/
+
 	public static void list(Contact[] all)
 	{
 		int buttonHeight = 50;
