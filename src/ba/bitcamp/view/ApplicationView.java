@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -150,6 +151,7 @@ public class ApplicationView extends Main {
 					JButton clicked = (JButton) e.getSource();
 					int id = Integer.parseInt(clicked.getName())-1;
 					System.out.println("User: " + all[id].getId());
+					ApplicationController.show(id);
 				}
 			});
 			panel.add(current);
@@ -179,6 +181,57 @@ public class ApplicationView extends Main {
 		sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		Main.replaceContent(sp);
 		
+	}
+	
+	public static void show(String name, String surname, String number)
+	{
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+		Font font1 = new Font("Verdana", Font.BOLD, 20);
+		Font font2 = new Font("Times New Roman", Font.ITALIC, 25);
+		JLabel nameLabel = new JLabel("Name");
+		nameLabel.setFont(font1);
+		JLabel surnameLabel = new JLabel("Surname");
+		surnameLabel.setFont(font1);
+		JLabel numberLabel = new JLabel("Number");
+		numberLabel.setFont(font1);
+	
+		JTextField nameField = new JTextField(name);
+		nameField.setFont(font2);
+		nameField.setEnabled(false);
+		JTextField surnameField = new JTextField(surname);
+		surnameField.setFont(font2);
+		surnameField.setEnabled(false);
+		JTextField numberField = new JTextField(number);
+		numberField.setFont(font2);
+		numberField.setEnabled(false);
+		JButton backButton = new JButton("Back");
+		backButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ApplicationController.list();
+				
+			}
+		});
+		JButton editButton = new JButton("Edit");
+		editButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		panel.add(nameLabel);
+		panel.add(nameField);
+		panel.add(surnameLabel);
+		panel.add(surnameField);
+		panel.add(numberLabel);
+		panel.add(numberField);
+		panel.add(backButton);
+		panel.add(editButton);
+		Main.replaceContent(panel);
 	}
 
 }

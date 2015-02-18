@@ -15,12 +15,12 @@ public class Application {
 	 * @throws SQLException
 	 */
 
-	public static void init() throws SQLException {
-		db = DriverManager.getConnection("jdbc:sqlite:BitBook.db");
+	public static void init(String databaseName) throws SQLException {
+		db = DriverManager.getConnection("jdbc:sqlite:" + databaseName + ".db");
 	}
 
 	/**
-	 *  Method returns contact with given id.
+	 * Method returns contact with given id.
 	 * We use statement to communicate with database
 	 * and return contact as ResultSet
 	 * @param id
@@ -48,7 +48,7 @@ public class Application {
 	 * @return boolean
 	 */
 	
-	protected static boolean save(String tableName, String values) {
+	protected static int save(String tableName, String values) {
 
 		Statement stmt = null;
 		try {
@@ -57,18 +57,21 @@ public class Application {
 			stmt.execute("begin;");
 			stmt.execute(sql);
 			stmt.execute("commit;");
-			return true;
+			sql = String.format("SELECT max(id) as last_id FROM %s; ", tableName);
+			ResultSet rs = stmt.executeQuery(sql);
+			rs.next();
+			return rs.getInt(1);
 		} catch (SQLException e) {
 			if (stmt != null) {
 				try {
 					stmt.execute("rollback;");
 				} catch (SQLException e1) {
 					System.err.println(e.getMessage());
-					return false;
+					return -1;
 				}
 			}
 			System.err.println(e.getMessage());
-			return false;
+			return -1;
 		}
 		
 	}
@@ -92,4 +95,6 @@ public class Application {
 			return null;
 		}
 	}
+	
+	
 }

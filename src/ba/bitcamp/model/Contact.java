@@ -108,7 +108,16 @@ public class Contact extends Application {
 	
 	public boolean save(){
 		 String values = String.format("(?, '%s', '%s', '%s')", this.name, this.surname, this.number);
-		 return Application.save(tableName, values);
+		 int id = Application.save(tableName, values);
+		 if(id==-1)
+		 {
+			 return false;
+		 }
+		 else
+		 {
+			 this.id = id;
+			 return true;
+		 }
 	}
 
 	/**
@@ -132,6 +141,7 @@ public class Contact extends Application {
 				int id = rs.getInt("id");
 				String cName = rs.getString("name");
 				String cSurname = rs.getString("surname");
+				
 				cl.add(new Contact(id, cName, cSurname));
 			}
 			Contact[] all = new Contact[cl.size()];
@@ -157,6 +167,7 @@ public class Contact extends Application {
 	 * Method that creates array with all contacts
 	 */
 	
+	@SuppressWarnings("unused")
 	public static void list()
 	{
 		Contact[] all = Contact.all();

@@ -48,7 +48,7 @@ public class ApplicationController {
 		Contact newContact = new Contact(name, surname, number);
 		if ( newContact.save() == true ){
 			JOptionPane.showMessageDialog(null, "Contact saved successfully " + newContact.getName(), "Contact added", JOptionPane.INFORMATION_MESSAGE);//TODO redirect to contact info
-			home();
+			show(newContact.getId());
 		} else {
 			JOptionPane.showMessageDialog(null, "There is an invalid input", "Error saving Contact", JOptionPane.WARNING_MESSAGE);
 		}
@@ -63,7 +63,7 @@ public class ApplicationController {
 		
 		/*TODO connecting to database */
 		try {
-			Application.init();
+			Application.init("BitBook");
 		} catch (SQLException e) {
 			System.err.println("Applicazion.int " + e.getMessage());
 			System.exit(1);
@@ -82,6 +82,12 @@ public class ApplicationController {
 	public static void list()
 	{
 		ApplicationView.list(Contact.all());
+	}
+	
+	public static void show(int id)
+	{
+		Contact c = Contact.find(id);
+		ApplicationView.show(c.getName(), c.getSurname(), c.getNumber());
 	}
 	
 }
