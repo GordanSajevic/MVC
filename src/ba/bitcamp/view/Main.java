@@ -3,18 +3,26 @@ package ba.bitcamp.view;
 import java.awt.Container;
 import javax.swing.JFrame;
 
+/**
+ * Class creates main frame for our application
+ * @author gordansajevic
+ *
+ */
+
 public class Main {
 
-/*
-* Class creates main frame for our application
-*/
+	/**
+	 * Method initializes main frame
+	 */
 
 	private static JFrame window = null;
 	protected static int windowWidth = 400;
 	protected static int windowHeight = 500;
-/*
-* Method initializes main frame
-*/
+
+	/**
+	 * Method that initializes main frame
+	 */
+	
 	public static void init() {
 		window = new JFrame("BitBook");
 		window.setSize(windowWidth, windowHeight);
@@ -22,17 +30,22 @@ public class Main {
 		window.setResizable(false);
 
 	}
-/*
-* Method sets visibility of main frame
-*/
+	
+	/**
+	 * Method that sets visibility of main frame
+	 */
+	
 	protected static void setVisible() {
 		window.validate();
 		window.repaint();
 		window.setVisible(true);
 	}
-/*
-* Method sets panel for main frame
-*/
+
+	/**
+	 * Method that sets panel for main frame
+	 * @param panel
+	 */
+	
 	protected static void replaceContent(Container panel) {
 		window.setContentPane(panel);
 		setVisible();

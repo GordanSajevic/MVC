@@ -1,25 +1,33 @@
 package ba.bitcamp.model;
 import java.sql.*;
 
-/*
-* Class that enables connection with database
-*/
+/**
+ * Class that enables connection with database
+ * @author gordansajevic
+ *
+ */
 
 public class Application {
 	protected static Connection db;
 
-/*
-* Method initializes connection with database(name of database is hard coded) 
-*/
+	/**
+	 * Method initializes connection with database(name of database is hard coded) 
+	 * @throws SQLException
+	 */
 
 	public static void init() throws SQLException {
 		db = DriverManager.getConnection("jdbc:sqlite:BitBook.db");
 	}
-/*
-* Method returns contact with given id.
-* We use statement to communicate with database
-* and return contact as ResultSet
-*/
+
+	/**
+	 *  Method returns contact with given id.
+	 * We use statement to communicate with database
+	 * and return contact as ResultSet
+	 * @param id
+	 * @param tableName
+	 * @return ResultSet
+	 */
+	
 	protected static ResultSet find(int id, String tableName) {
 		try {
 			Statement stmt = db.createStatement();
@@ -32,10 +40,14 @@ public class Application {
 		}
 	}
 
-/*
-* Method that inserts given values in database and saves it.
-* Again we use statement to communicate with our database.
-*/
+	/**
+	 * Method that inserts given values in database and saves it.
+	 * Again we use statement to communicate with our database.
+	 * @param tableName
+	 * @param values
+	 * @return boolean
+	 */
+	
 	protected static boolean save(String tableName, String values) {
 
 		Statement stmt = null;
@@ -60,10 +72,15 @@ public class Application {
 		}
 		
 	}
-/*
-* Method requests from database to print all contact in table.
-* Than it returns all contacts as ResultSet
-*/
+	
+	/**
+	 * Method requests from database to print all contact in table.
+	 * Than it returns all contacts as ResultSet
+	 * @param tableName
+	 * @param columnName
+	 * @return ResultSet
+	 */
+	
 	protected static ResultSet all(String tableName, String columnName)
 	{
 		try {

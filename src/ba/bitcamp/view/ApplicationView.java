@@ -16,17 +16,19 @@ import javax.swing.JTextField;
 import ba.bitcamp.controller.ApplicationController;
 import ba.bitcamp.model.*;
 
-/*
-* Class creates main GUI for our application.
-* This class extends Main class(because of method replaceContent in Main class)
-*/
+/**
+ * Class creates main GUI for our application.
+ * This class extends Main class(because of method replaceContent in Main class)
+ * @author gordansajevic
+ *
+ */
 
 public class ApplicationView extends Main {
 
-/*
-* Method creates pane, buttons and label for main frame.
-* After that, we put panel on main frame(with method replaceContent from main class)
-*/
+	/**
+	 *  Method creates pane, buttons and label for main frame.
+	 *  After that, we put panel on main frame(with method replaceContent from main class)
+	 */
 
 	public static void home() {
 		JPanel content = new JPanel();
@@ -59,10 +61,13 @@ public class ApplicationView extends Main {
 
 	}
 
-/*
-* Method creates panel for adding new contacts to phonebook.
-* Again we use replaceContent from Main class
-*/
+	/**
+	 * Method creates panel for adding new contacts to phonebook.
+	 * Again we use replaceContent from Main class
+	 * In action listeners we call methods from 
+	 * ApplicationController class to create new contact
+	 * and to get back to the main panel.
+	 */
 
 	public static void addContact() {
 
@@ -109,10 +114,13 @@ public class ApplicationView extends Main {
 
 	}
 
-/*
-* Class creates panel for list of all contacts in phonebook.
-* Again we use replaceContent from Main class
-*/
+	/**
+	 * Class creates panel for list of all contacts in phonebook.
+	 * Again we use replaceContent from Main class.
+	 * In action listeners we use methods from ApplicationController
+	 * to add new contact and get back to the main panel.
+	 * @param all
+	 */
 
 	public static void list(Contact[] all)
 	{

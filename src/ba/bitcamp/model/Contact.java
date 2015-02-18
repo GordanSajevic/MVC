@@ -5,18 +5,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-/*
-* Class for contacts in phonebook
-*/
+/**
+ * Class for contacts in phonebook
+ * @author gordansajevic
+ *
+ */
 
 public class Contact extends Application {
 
 	private int id;
 	private String name, surname, number;
 	private final static String tableName = "contacts";
-/*
-* Constructor with no parameters
-*/
+
+	/**
+	 * Constructor with no parameters
+	 */
+	
 	public Contact() {
 
 		this.id = -1;
@@ -25,9 +29,14 @@ public class Contact extends Application {
 		this.number = "";
 
 	}
-/*
-* Constructor with three parameters.
-*/	
+
+	/**
+	 * Constructor with three parameters.
+	 * @param id
+	 * @param name
+	 * @param surname
+	 */
+	
 	public Contact(int id, String name, String surname)
 	{
 		this.name = name;
@@ -35,10 +44,15 @@ public class Contact extends Application {
 		this.number = "";
 		this.id = id;
 	}
-/*
-* Constructor with three parameters.
-* Default value for id is -1
-*/
+	
+	/**
+	 * Constructor with three parameters.
+	 * Default value for id is -1
+	 * @param name
+	 * @param surname
+	 * @param number
+	 */
+	
 	public Contact(String name, String surname, String number) {
 
 		this.id = -1;
@@ -46,9 +60,15 @@ public class Contact extends Application {
 		this.surname = surname;
 		this.number = number;
 	}
-/*
-* Constructor with all four parameters
-*/
+
+	/**
+	 * Constructor with all four parameters
+	 * @param id
+	 * @param name
+	 * @param surname
+	 * @param number
+	 */
+	
 	public Contact(int id, String name, String surname, String number) {
 
 		this.id = id;
@@ -57,12 +77,15 @@ public class Contact extends Application {
 		this.number = number;
 	}
 
-/*
-* Method that returns contact with given id.
-* We call find method from Application class, and give it id and table name.
-* Than we put all values in strings, so we use them to create contact
-* and return that contact
-*/
+	/**
+	 * Method that returns contact with given id.
+	 * We call find method from Application class, and give it id and table name.
+	 * Than we put all values in strings, so we use them to create contact
+	 * and return that contact
+	 * @param id
+	 * @return Contact
+	 */
+	
 	public static Contact find(int id) {
 		ResultSet res = Application.find(id, tableName);
 		try {
@@ -76,19 +99,25 @@ public class Contact extends Application {
 			return null;
 		}
 	}
-/*
-* Method that sends values in save method in Application class
-* and checks if save method is valid, and returns boolean value.
-*/
+
+	/**
+	 * Method that sends values in save method in Application class
+	 * and checks if save method is valid, and returns boolean value.
+	 * @return boolean
+	 */
+	
 	public boolean save(){
 		 String values = String.format("(?, '%s', '%s', '%s')", this.name, this.surname, this.number);
 		 return Application.save(tableName, values);
 	}
-/*
-* Method that returns array with all contacts. First, we use all() method
-* from Application class to put all contacts in ResultSet. Then, we put all
-* contact in linked list. After that, we create array, and put all contacts in array.
-*/	
+
+	/**
+	 * Method that returns array with all contacts. First, we use all() method
+	 * from Application class to put all contacts in ResultSet. Then, we put all
+	 * contact in linked list. After that, we create array, and put all contacts in array.
+	 * @return Contact[]
+	 */
+	
 	public static Contact[] all()
 	{
 		ResultSet rs = Application.all(tableName, "ID, name, surname");
@@ -113,59 +142,85 @@ public class Contact extends Application {
 			return new Contact[0];
 		}
 	}
-/*
-* Getter for name and surname
-*/
+
+	/**
+	 * Getter for name and surname
+	 * @return name + surname
+	 */
+	
 	public String getDisplayName()
 	{
 		return this.name + " " + this.surname;
 	}
-/*
-* Method that creates array with all contacts
-*/	
+
+	/**
+	 * Method that creates array with all contacts
+	 */
+	
 	public static void list()
 	{
 		Contact[] all = Contact.all();
 	}
-/*
-* Getter for id
-*/
+
+	/**
+	 * Getter for id
+	 * @return id
+	 */
+	
 	public int getId() {
 		return id;
 	}
-/*
-* Getter for name
-*/
+	
+	/**
+	 * Getter for name
+	 * @return name
+	 */
+	
 	public String getName() {
 		return name;
 	}
-/*
-* Setter for name
-*/
+
+	/**
+	 * Setter for name
+	 * @param name
+	 */
+	
 	public void setName(String name) {
 		this.name = name;
 	}
-/*
-* Getter for surname
-*/
+
+	/**
+	 * Getter for surname
+	 * @return surname
+	 */
+	
 	public String getSurname() {
 		return surname;
 	}
-/*
-* Setter for surname
-*/
+
+	/**
+	 * Setter for surname
+	 * @param surname
+	 */
+	
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
-/*
-* Getter for number
-*/
+
+	/**
+	 * Getter for number
+	 * @return number
+	 */
+	
 	public String getNumber() {
 		return number;
 	}
-/*
-* Setter for number
-*/
+	
+	/**
+	 * Setter for number
+	 * @param number
+	 */
+	
 	public void setNumber(String number) {
 		this.number = number;
 	}
