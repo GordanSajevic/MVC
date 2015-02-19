@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -183,55 +184,136 @@ public class ApplicationView extends Main {
 		
 	}
 	
-	public static void show(String name, String surname, String number)
-	{
-		JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-		Font font1 = new Font("Verdana", Font.BOLD, 20);
-		Font font2 = new Font("Times New Roman", Font.ITALIC, 25);
-		JLabel nameLabel = new JLabel("Name");
-		nameLabel.setFont(font1);
-		JLabel surnameLabel = new JLabel("Surname");
-		surnameLabel.setFont(font1);
-		JLabel numberLabel = new JLabel("Number");
-		numberLabel.setFont(font1);
+	/**
+	 * Class creates panel for with all informations about
+	 * selected user from list.
+	 * @param current
+	 */
 	
-		JTextField nameField = new JTextField(name);
-		nameField.setFont(font2);
-		nameField.setEnabled(false);
-		JTextField surnameField = new JTextField(surname);
-		surnameField.setFont(font2);
-		surnameField.setEnabled(false);
-		JTextField numberField = new JTextField(number);
-		numberField.setFont(font2);
-		numberField.setEnabled(false);
-		JButton backButton = new JButton("Back");
-		backButton.addActionListener(new ActionListener() {
-			
+	public static void show(Contact current) {
+		JPanel content = new JPanel();
+		Font dataFont = new Font("SansSerif", Font.BOLD, 30);
+
+		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+		JLabel nameL = new JLabel("Name: ");
+		JLabel name = new JLabel(current.getName());
+		name.setFont(dataFont);
+		content.add(nameL);
+		content.add(name);
+
+		JLabel surnameL = new JLabel("Surname: ");
+		JLabel surname = new JLabel(current.getSurname());
+		surname.setFont(dataFont);
+		content.add(surnameL);
+		content.add(surname);
+
+		JLabel numberL = new JLabel("Number: ");
+		JLabel number = new JLabel(current.getNumber());
+		number.setFont(dataFont);
+		content.add(numberL);
+		content.add(number);
+
+		JButton update = new JButton("Update");
+		update.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ApplicationController.update(current.getId());
+			}
+
+		});
+
+		JButton back = new JButton("Back");
+		back.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ApplicationController.list();
-				
 			}
+
 		});
-		JButton editButton = new JButton("Edit");
-		editButton.addActionListener(new ActionListener() {
-			
+
+		JButton delete = new JButton("Delete");
+		delete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				int response = JOptionPane.showConfirmDialog(null,
+						"Are you sure?", "Delete?", JOptionPane.YES_NO_OPTION);
+				if (response == JOptionPane.YES_OPTION) {
+					ApplicationController.delete(current.getId());
+				} else {
+					return;
+				}
 			}
 		});
-		panel.add(nameLabel);
-		panel.add(nameField);
-		panel.add(surnameLabel);
-		panel.add(surnameField);
-		panel.add(numberLabel);
-		panel.add(numberField);
-		panel.add(backButton);
-		panel.add(editButton);
-		Main.replaceContent(panel);
+
+		JPanel buttons = new JPanel();
+		buttons.add(back);
+		buttons.add(update);
+		buttons.add(delete);
+		content.add(buttons);
+		replaceContent(content);
+
 	}
 
+	/**
+	 * Class creates panel for updating selected contact from list
+	 * @param current
+	 */
+	
+	public static void updateContact(Contact current) {
+
+		JPanel content = new JPanel();
+		content.setLayout(new FlowLayout());
+		JLabel nameL = new JLabel("Name: ");
+		JTextField nameF = new JTextField(current.getName(), 25);
+		content.add(nameL);
+		content.add(nameF);
+
+		JLabel surnameL = new JLabel("Surname: ");
+		JTextField surnameF = new JTextField(current.getSurname(), 25);
+		content.add(surnameL);
+		content.add(surnameF);
+
+		JLabel numberL = new JLabel("Number: ");
+		JTextField numberF = new JTextField(current.getNumber(), 25);
+		content.add(numberL);
+		content.add(numberF);
+
+		JButton submit = new JButton("Save Update");
+		submit.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				/*
+				 * get the data from the input and send it to the create method
+				 */
+				String cName = nameF.getText();
+				String cSurname = surnameF.getText();
+				String cNumber = numberF.getText();
+				current.setName(cName);
+				current.setSurname(cSurname);
+				current.setNumber(cNumber);
+				ApplicationController.update(current);
+			}
+
+		});
+
+		JButton back = new JButton("Back");
+		back.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ApplicationController.show(current.getId());
+			}
+
+		});
+
+		JPanel buttons = new JPanel();
+		buttons.add(submit);
+		buttons.add(back);
+		content.add(buttons);
+		replaceContent(content);
+	}
+
+	
 }

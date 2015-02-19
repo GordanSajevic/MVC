@@ -154,6 +154,24 @@ public class Contact extends Application {
 	}
 
 	/**
+	 * Method for updating contact. We call update method from Application class
+	 */
+	
+	public void update(){
+		String sql = String.format("name = '%s', surname = '%s', number = '%s'", this.name, this.surname, this.number);
+		Application.update(tableName, this.id, sql);
+	}
+	
+	/**
+	 * Method for deleting contact. We use delete method from Application class
+	 * @param id
+	 */
+	
+	public static void delete(int id){
+		Application.delete(tableName, id);
+	}
+	
+	/**
 	 * Getter for name and surname
 	 * @return name + surname
 	 */

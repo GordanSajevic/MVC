@@ -79,15 +79,54 @@ public class ApplicationController {
 	 *  and sends it array with all contacts
 	 */
 	
-	public static void list()
-	{
-		ApplicationView.list(Contact.all());
+	public static void list(){
+		Contact[] all = Contact.all();
+		ApplicationView.list(all);
 	}
 	
-	public static void show(int id)
-	{
-		Contact c = Contact.find(id);
-		ApplicationView.show(c.getName(), c.getSurname(), c.getNumber());
+	/**
+	 * Method for showing all informations for contact with given id
+	 * @param id
+	 */
+	
+	public static void show(int id){
+		Contact current = Contact.find(id);
+		ApplicationView.show(current);
+	}
+	
+	/**
+	 * Method for updating contact with given id.
+	 * We use find method to find contact and send id to
+	 * update method from ApplicationView class
+	 * @param id
+	 */
+	
+	public static void update(int id){
+		Contact current = Contact.find(id);
+		ApplicationView.updateContact(current);
+	}
+	
+	/**
+	 * Method for updating contact.
+	 * Method calls update method from Contact class
+	 * and show method from ApplicationView class
+	 * @param id
+	 */
+	
+	public static void update(Contact c){
+		c.update();
+		ApplicationView.show(c);
+	}
+	
+	/**
+	 * Method for deleting contact with given id.
+	 * We use delete method from Contact class
+	 * @param id
+	 */
+	
+	public static void delete(int id){
+		Contact.delete(id);
+		list();
 	}
 	
 }
